@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Magical World</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff3f6c;
+            --gold: #ffd700;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background: #050505;
+            color: white;
+        }
+
+        /* Magical Background Particles */
+        #canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Entrance Screen */
+        #entrance {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, #1a0105, #000);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 1.5s ease-out;
+        }
+
+        .magic-btn {
+            background: none;
+            border: 2px solid var(--primary);
+            color: white;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary);
+            font-family: 'Dancing Script', cursive;
+            transition: 0.3s;
+        }
+
+        .magic-btn:hover { background: var(--primary); transform: scale(1.1); }
+
+        /* Main Site Layout */
+        #content {
+            position: relative;
+            z-index: 10;
+            display: none;
+            opacity: 0;
+            transition: 2s;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 63, 108, 0.6);
+            margin: 0;
+        }
+
+        .bengali-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 30px;
+        }
+
+        /* Floating Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .photo-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 15px;
+            transform: rotate(var(--r));
+            transition: 0.5s;
+        }
+
+        .photo-card:hover {
+            transform: rotate(0deg) scale(1.1);
+            z-index: 100;
+            border-color: var(--primary);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Butterflies & Hearts Styles */
+        .butterfly {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 5;
+            animation: fly 8s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { transform: translate(-10vw, 100vh) rotate(0deg); }
+            25% { transform: translate(30vw, 60vh) rotate(45deg); }
+            50% { transform: translate(70vw, 30vh) rotate(-45deg); }
+            100% { transform: translate(110vw, -10vh) rotate(20deg); }
+        }
+
+        .love-icon {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+            animation: float-up 5s linear forwards;
+        }
+
+        @keyframes float-up {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .counter-section {
+            text-align: center;
+            margin: 40px 0;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .time-box span { font-size: 2.5rem; color: var(--primary); font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div id="entrance">
+        <button class="magic-btn" onclick="startMagic()">Click for Magic ✨</button>
+    </div>
+
+    <div id="magic-container"></div>
+
+    <div id="content">
+        <header>
+            <h1>Endless Love</h1>
+            <p class="bengali-title">প্রজাপতি ডানায় লিখেছি তোমার নাম ❤️</p>
+        </header>
+
+        <div class="gallery">
+            <div class="photo-card" style="--r: -5deg;"><img src="rak.jpg" alt="Photo 1"></div>
+            <div class="photo-card" style="--r: 3deg;"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7" alt="Photo 2"></div>
+            <div class="photo-card" style="--r: -2deg;"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e" alt="Photo 3"></div>
+            <div class="photo-card" style="--r: 4deg;"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Photo 4"></div>
+            <div class="photo-card" style="--r: -4deg;"><img src="https://images.unsplash.com/photo-1516589174184-c68526572af0" alt="Photo 5"></div>
+            <div class="photo-card" style="--r: 2deg;"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7" alt="Photo 6"></div>
+        </div>
+
+        <div class="counter-section">
+            <p>আমাদের একসাথে পথচলার</p>
+            <div class="time-box">
+                <span id="days">0</span> দিন
+            </div>
+            <p style="margin-top:10px;">তোমার হাসিতেই আমার স্বপ্নদের বসত।</p>
+        </div>
+    </div>
+
+    <script>
+        const anniversary = new Date("October 1, 2023").getTime();
+
+        function startMagic() {
+            // Hide entrance
+            document.getElementById('entrance').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('entrance').style.display = 'none';
+                const content = document.getElementById('content');
+                content.style.display = 'block';
+                setTimeout(() => content.style.opacity = '1', 100);
+            }, 1000);
+
+            // Start animations
+            setInterval(createButterfly, 2000);
+            setInterval(createHeart, 1500);
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        function createButterfly() {
+            const b = document.createElement('div');
+            b.classList.add('butterfly');
+            b.innerHTML = '🦋';
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.top = Math.random() * 100 + 'vh';
+            b.style.animationDuration = (Math.random() * 5 + 7) + 's';
+            document.getElementById('magic-container').appendChild(b);
+            setTimeout(() => b.remove(), 10000);
+        }
+
+        function createHeart() {
+            const h = document.createElement('div');
+            h.classList.add('love-icon');
+            h.innerHTML = ['❤️', '💖', '✨', '🌸'][Math.floor(Math.random() * 4)];
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.getElementById('magic-container').appendChild(h);
+            setTimeout(() => h.remove(), 5000);
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const diff = now - anniversary;
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        }
+    </script>
+</body>
+</html>
